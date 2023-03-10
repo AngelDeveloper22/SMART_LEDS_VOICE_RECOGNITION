@@ -10,9 +10,9 @@ CÓDIGO: FIRMWARE DE ARDUINO UNO PARA LA CONFIGURACIÓN DE ENCENDIDO
 const unsigned int MAX_MESSAGE_LENGTH = 12;
 
 void setup() {
-  pinMode(13, OUTPUT);
+  pinMode(8, OUTPUT);
   pinMode(12,OUTPUT);
-  digitalWrite(13,LOW);
+  digitalWrite(8,LOW);
   digitalWrite(12,LOW);
   // put your setup code here, to run once:
   Serial.begin(9600);
@@ -48,22 +48,23 @@ void loop() {
     int number = atoi(message);
     Serial.print(number);
     Serial.print('\n');
-    if (number == 8)
-    {
-      digitalWrite(13,HIGH);
+
+    switch(number){
+      case 1:
+        digitalWrite(8,HIGH);
+        break;
+      case 0:
+        digitalWrite(8,LOW);
+        break;
+      case 2:
+        digitalWrite(12,HIGH);
+        break;
+      case 3:
+        digitalWrite(12,LOW);
+      default:
+        break;
     }
-    else if (number == 9)
-    {
-      digitalWrite(13,LOW);
-    }
-    else if (number == 1)
-    {
-      digitalWrite(12,HIGH);
-    }
-    else if (number == 0)
-    {
-      digitalWrite(12,LOW);
-    }
+
 
     //Reset the position variable
     message_pos = 0;
